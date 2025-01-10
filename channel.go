@@ -185,6 +185,8 @@ func (ch *Channel) call(req message, res ...message) error {
 			return ErrClosed
 
 		case msg := <-ch.rpc:
+			fmt.Println("2222")
+	                fmt.Println(msg)
 			if msg != nil {
 				for _, try := range res {
 					if reflect.TypeOf(msg) == reflect.TypeOf(try) {
