@@ -186,10 +186,12 @@ func (ch *Channel) call(req message, res ...message) error {
 			return ErrClosed
 
 		case msg := <-ch.rpc:
-			fmt.Println("2222")
-	                fmt.Println(msg)
 			if msg != nil {
+				fmt.Println("2222")
+	                	fmt.Println(msg)
 				for _, try := range res {
+					fmt.Println(reflect.TypeOf(msg))
+					fmt.Println(reflect.TypeOf(try))
 					if reflect.TypeOf(msg) == reflect.TypeOf(try) {
 						// *res = *msg
 						vres := reflect.ValueOf(try).Elem()
@@ -198,6 +200,7 @@ func (ch *Channel) call(req message, res ...message) error {
 						return nil
 					}
 				}
+				fmt.Println("33333333")
 				return ErrCommandInvalid
 			}
 			// RPC channel has been closed without an error, likely due to a hard
