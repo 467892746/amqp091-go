@@ -7,10 +7,10 @@ package amqp091
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"sync"
 	"sync/atomic"
-	"fmt"
 )
 
 // 0      1         3             7                  size+7 size+8
@@ -188,7 +188,8 @@ func (ch *Channel) call(req message, res ...message) error {
 		case msg := <-ch.rpc:
 			if msg != nil {
 				fmt.Println("2222")
-	                	fmt.Println(msg)
+				fmt.Printf("req:%+v\n", req)
+				fmt.Println(msg)
 				for _, try := range res {
 					fmt.Println(reflect.TypeOf(msg))
 					fmt.Println(reflect.TypeOf(try))
